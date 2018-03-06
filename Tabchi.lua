@@ -1,12 +1,7 @@
-------------------------
--- In The Name Of GoD --
---     Tabchi.lua     --
---    Bass By Naji    --
-------------------------
 DataBase = (loadfile "redis.lua")()
 DataBase = DataBase.connect('127.0.0.1', 6379)
-channel_id = -1001135894458
-channel_user = "@DiamondKA"
+channel_id = -1001094541867
+channel_user = "@signalteam"
 local BOT = Tabchi-ID
 function dl_cb(arg, data)
 end
@@ -14,7 +9,7 @@ end
 	if DataBase:get('bibak'..BOT..'adminset') then
 		return true
 	else
-    	print("\n\27[36m                      @DiamondKA \n >> Admin UserID :\n\27[31m                 ")
+    	print("\n\27[36m                      @signalteam \n >> Admin UserID :\n\27[31m                 ")
     	local admin=io.read()
 		DataBase:del("bibak"..BOT.."admin")
     	DataBase:sadd("bibak"..BOT.."admin", admin)
@@ -271,9 +266,9 @@ tdcli_function ({ID = "GetChatMember",chat_id_ = channel_id, user_id_ = msg.send
 				elseif text:match("^(m) (%d+)$") then
 					local matches = text:match("%d+")
 					if DataBase:sismember('bibak'..BOT..'admin', matches) then
-						return send(msg.chat_id_, msg.id_, "<i>کاربر مورد نظر در حال حاضر مدیر است.</i>")
+						return send(msg.chat_id_, msg.id_, "<i>این حساب مدیر است.</i>")
 					elseif DataBase:sismember('bibak'..BOT..'mod', msg.sender_user_id_) then
-						return send(msg.chat_id_, msg.id_, "شما دسترسی ندارید.")
+						return send(msg.chat_id_, msg.id_, "دسترسی نداری.")
 					else
 						DataBase:sadd('bibak'..BOT..'admin', matches)
 						DataBase:sadd('bibak'..BOT..'mod', matches)
@@ -291,13 +286,13 @@ tdcli_function ({ID = "GetChatMember",chat_id_ = channel_id, user_id_ = msg.send
 					end
 					if DataBase:sismember('bibak'..BOT..'admin', matches) then
 						if  DataBase:sismember('bibak'..BOT..'admin'..msg.sender_user_id_ ,matches) then
-							return send(msg.chat_id_, msg.id_, "شما نمی توانید مدیری که به شما مقام داده را عزل کنید.")
+							return send(msg.chat_id_, msg.id_, "این مدیرو نمیتونی حذف کنی.")
 						end
 						DataBase:srem('bibak'..BOT..'admin', matches)
 						DataBase:srem('bibak'..BOT..'mod', matches)
 						return send(msg.chat_id_, msg.id_, Done)
 					end
-					return send(msg.chat_id_, msg.id_, "کاربر مورد نظر مدیر نمی باشد.")
+					return send(msg.chat_id_, msg.id_, "این حساب کاربری مدیر نیست.")
 						elseif text:match("^(r)$") then
        dofile('./Tabchi.lua') 
  return send(msg.chat_id_, msg.id_, Reload)
